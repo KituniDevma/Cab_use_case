@@ -1,9 +1,9 @@
 parameters = {
     # Paths
     "paths": {
-        "data_path": "../Cab_Use_Case/src/data/Colombo-Cab-data-2.csv",
-        "dictionary_path": "../Cab_Use_Case/src/data/Colombo-Cab-data-dictionary.csv",
-        "output_path": "..Cab_Use_Case/src/data/output",
+        "data_path": "../Cab_use_case/src/data/Colombo-Cab-data-2.csv",
+        "dictionary_path": "../Cab_use_Case/src/data/Colombo-Cab-data-dictionary.csv",
+        "output_path": "/workspaces/Cab_use_case/src/data/output.csv/part-00000-727c7fda-0f04-459c-8a39-dd44229c4c83-c000.csv",
     },
 
     # Spark parameters
@@ -29,6 +29,7 @@ parameters = {
 
     # Train-test split parameters
     "train_test_split": {
+        "target_column": "Fare",
         "test_size": 0.2,
         "random_state": 42,
     }

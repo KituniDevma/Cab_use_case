@@ -1,33 +1,41 @@
-from pyspark.sql import SparkSession
+import sys
+import os
+
+# Append the project root directory to sys.path
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.append(project_root)
+
+
 from conf.config import init_spark, load_csv_data
-from pipeline.data_preprocessing import preprocess
+from pipeline.training import train_model_pipeline
+from pipeline.evaluation  import evaluate_model
 from conf.parameters import parameters
+import pandas as pd
 
 def main():
-    # Initialize Spark session
-    spark = init_spark(
-        app_name=parameters['spark']['app_name'],
-        master=parameters['spark']['master'],
-        executor_memory=parameters['spark']['config']['spark.executor.memory'],
-        driver_memory=parameters['spark']['config']['spark.driver.memory']
-    )
+    # Initialize Spark and load data
+    spark = init_spark()
+    df_spark = load_csv_data(spark, parameters["paths"]["data_path"])
 
-    # Load the data
-    input_path = parameters['paths']['data_path']
-    data = load_csv_data(spark, input_path)
+    # Convert Spark DataFrame to Pandas
+    df = df_spark.toPandas()
 
-    # Preprocess the data
-    processed_data = preprocess(data)
+    # Target column
+    target_column = parameters["train_test_split"]["target_column"]
 
-    # Save the processed data
-    output_path = parameters['paths']['output_path']
-    processed_data.write.csv(output_path, header=True, mode='overwrite')
-    print(f"Processed data saved to {output_path}")
+    # Train the model
+    df_train = load_csv_data(spark, parameters["paths"]["output_path"])
+    print(df_train.columns)
+    model, splits = train_model_pipeline(df_train, target_column)
 
-    # Stop the Spark session
-    spark.stop()
+    # Evaluate the model
+    X_train, X_test, y_train, y_test = splits
+    metrics = evaluate_model(model, X_test, y_test)
 
-if __name__ == '__main__':
+    # Print all evaluation metrics
+    print("Model Evaluation Metrics:")
+    for metric, value in metrics.items():
+        print(f"{metric}: {value:.4f}")
+
+if __name__ == "__main__":
     main()
-
-
