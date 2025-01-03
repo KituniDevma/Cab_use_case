@@ -25,6 +25,7 @@ def main():
 
     # Train the model
     df_train = load_csv_data(spark, parameters["paths"]["output_path"])
+    df_train = df_train.toPandas()
     print(df_train.columns)
     model, splits = train_model_pipeline(df_train, target_column)
 
