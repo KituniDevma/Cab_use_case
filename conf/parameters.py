@@ -29,8 +29,8 @@ parameters = {
 
     # Train-test split parameters
     "train_test_split": {
-        "target_column": "Fare",
+        "target_column": 'Fare',
         "test_size": 0.2,
-        "random_state": 42,
+        "random_state": 10,
     }
 }

@@ -1,0 +1,32 @@
+version: 1
+disable_existing_loggers: false
+
+formatters:
+  detailed:
+    format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+handlers:
+  info_file_handler:
+    class: logging.FileHandler
+    level: INFO
+    formatter: detailed
+    filename: "info.log"
+  warning_file_handler:
+    class: logging.FileHandler
+    level: WARNING
+    formatter: detailed
+    filename: "warning.log"
+
+loggers:
+  info_logger:
+    level: INFO
+    handlers: [info_file_handler]
+    propagate: no
+  warning_logger:
+    level: WARNING
+    handlers: [warning_file_handler]
+    propagate: no
+
+root:
+  level: WARNING
+  handlers: [warning_file_handler]
