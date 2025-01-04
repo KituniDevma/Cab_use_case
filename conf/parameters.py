@@ -2,6 +2,7 @@ parameters = {
     # Paths
     "paths": {
         "data_path": "../Cab_use_case/src/data/Colombo-Cab-data-2.csv",
+        "analysis_data_path": "/workspaces/Cab_use_case/src/data/Colombo-Cab-data-2.xlsx",
         "dictionary_path": "../Cab_use_Case/src/data/Colombo-Cab-data-dictionary.csv",
         "output_path": "/workspaces/Cab_use_case/src/data/output.csv/part-00000-727c7fda-0f04-459c-8a39-dd44229c4c83-c000.csv",
     },
