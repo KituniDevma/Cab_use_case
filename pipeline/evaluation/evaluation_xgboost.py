@@ -9,7 +9,7 @@ logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
 
-def evaluate_model(model, X_test, y_test):
+def evaluate_xgboost_model(model, X_test, y_test):
     """
     Evaluate the XGBoost model using various regression metrics.
 

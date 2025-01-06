@@ -10,7 +10,7 @@ logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
 
-def train_model_pipeline(df, target_column):
+def train_xgboost_model_pipeline(df, target_column):
     """
     Train the XGBoost model pipeline.
 
